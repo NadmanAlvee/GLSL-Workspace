@@ -92,10 +92,15 @@ class World {
   async #initObjects() {
     // meshes
     const geometry = new THREE.IcosahedronGeometry(1, 5);
-    const material = new THREE.ShaderMaterial({
+    const material = new THREE.RawShaderMaterial({
       vertexShader: vertexShader,
       fragmentShader: fragmentShader,
     });
+
+    console.log(geometry);
+
+    material.uniforms.uTime = { value: 0 };
+    console.log(material);
 
     const ico = new THREE.Mesh(geometry, material);
     this.scene.add(ico);

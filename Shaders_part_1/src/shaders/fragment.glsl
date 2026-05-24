@@ -68,3 +68,11 @@
 //   gl_FragColor = vec4(isEqual, 1);
 // }
 
+// # Attrributes & Uniforms
+
+precision mediump float;
+uniform float uTime;
+
+void main(){
+  gl_FragColor = vec4(0.234, 0.363, 0.563, 1);
+}
