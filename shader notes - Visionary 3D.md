@@ -18,4 +18,4 @@ attributes are vertex specific
 uniforms are not vertex specific
 
 varying is used to pass data as a variable from the vertex shader to the fragment shader
-
+*varying are constants on fragment shaders

@@ -77,11 +77,36 @@ uniform float uTime;
 
 varying vec3 vPosition;
 varying vec3 vNormal;
-flat varying vec2 vUv; // hard edge
+// flat varying vec2 vUv; // hard edge, no interpolation
+varying vec2 vUv; // interpolation / lerp, no hard edge
 
+// #  useful functions
 void main(){
+  // x, y -> x
 
-
+  // swizzle mask
   // gl_FragColor = vec4(vPosition.xy, 1, 1);
-  gl_FragColor = vec4(vUv.xxx, 1);
+
+  // power function
+  // gl_FragColor = vec4(vec3(pow(vUv.x, 3.f)), 1);
+
+  // step - value >= edge ? 1 : 0;
+  // gl_FragColor = vec4(vec3(step(0.5, vUv.x)), 1);
+
+  // smooth step
+  // gl_FragColor = vec4(vec3(smoothstep(0.45, 0.55, vUv.x)), 1);
+
+  // length  length of a vector
+  vec2 uv = vUv;
+
+  // uv.x = uv.x + 1.0 / 2.0;
+  // uv.y = uv.y + 1.0 / 2.0;
+  // uv += vec2(0.5);
+
+  uv.x = uv.x - 1.0 / 2.0;
+  uv.y = uv.y - 1.0 / 2.0;
+  uv *= 2.0;
+
+  gl_FragColor = vec4(vec3(length(uv)), 1);
+
 }
