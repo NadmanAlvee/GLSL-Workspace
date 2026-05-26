@@ -90,17 +90,24 @@ class World {
 
   // Initiate Objects
   async #initObjects() {
+    const gridColor = 0xffffff;
+    const gridHelper = new THREE.GridHelper(2, 10, gridColor, gridColor);
+    gridHelper.material.transparent = true;
+    gridHelper.material.opacity = 0.1;
+    this.scene.add(gridHelper);
+
     // meshes
-    const geometry = new THREE.IcosahedronGeometry(1, 5);
-    const material = new THREE.RawShaderMaterial({
+    // const geometry = new THREE.IcosahedronGeometry(1, 5);
+    const geometry = new THREE.PlaneGeometry(2, 2, 2, 2);
+    console.log(geometry.attributes);
+
+    const material = new THREE.ShaderMaterial({
       vertexShader: vertexShader,
       fragmentShader: fragmentShader,
+      side: THREE.DoubleSide,
+      // wireframe: true,
     });
-
-    console.log(geometry);
-
     material.uniforms.uTime = { value: 0 };
-    console.log(material);
 
     const ico = new THREE.Mesh(geometry, material);
     this.scene.add(ico);

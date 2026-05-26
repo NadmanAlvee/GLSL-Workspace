@@ -62,6 +62,7 @@
 //   // dot, cross
 //   // clamp(-0.1, 0, 1)
 //   // step, smoothstep, fract, equal
+//   // mix()
 
 //   bvec3 isEqual = equal(vec3(1), vec3(1));
 
@@ -70,9 +71,17 @@
 
 // # Attrributes & Uniforms
 
-precision mediump float;
+// precision mediump float; // only needs to be specified when using RawShaderMaterial
+
 uniform float uTime;
 
+varying vec3 vPosition;
+varying vec3 vNormal;
+flat varying vec2 vUv; // hard edge
+
 void main(){
-  gl_FragColor = vec4(0.234, 0.363, 0.563, 1);
+
+
+  // gl_FragColor = vec4(vPosition.xy, 1, 1);
+  gl_FragColor = vec4(vUv.xxx, 1);
 }
