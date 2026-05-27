@@ -108,6 +108,7 @@ class World {
       // wireframe: true,
     });
     material.uniforms.uTime = { value: 0 };
+    material.uniforms.uRadius = { value: 0.5 };
 
     const ico = new THREE.Mesh(geometry, material);
     this.scene.add(ico);
