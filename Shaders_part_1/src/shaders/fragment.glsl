@@ -119,13 +119,19 @@ void main(){
   // gl_FragColor = vec4(vec3(mix(0.0, 0.5, vUv.x)), 1);
 
   // sunlight brightness
-  vec3 dLight = normalize(vec3(0.f, 2.f, 0.f));
+  // vec3 dLight = normalize(vec3(0.f, 2.f, 0.f));
+  // vec3 normal = normalize(vNormal);
+  // float baseColor = dot(normal, dLight);
+  // float brightness = max(dot(normal, dLight), 0.f) * 2.0;
+  // gl_FragColor = vec4(vec3(1.f - baseColor * brightness * 0.75), 1); // fresnel on
+
+  // vec3 vectorA = vec3(1.0);
+  // vec3 vectorB = vec3(0.0);
+  // float dotProduct = dot(vectorA, vectorB);
+
+  vec3 viewDirection = normalize(cameraPosition);
   vec3 normal = normalize(vNormal);
-  float brightness = max(dot(normal, dLight), 0.f) * 2.0;
+  float fresnel = 1.f - dot(viewDirection, normal);
 
-  vec3 vectorA = vec3(1.0);
-  vec3 vectorB = vec3(0.0);
-  float dotProduct = dot(vectorA, vectorB);
-
-  gl_FragColor = vec4(vec3(dotProduct), 1);
+  gl_FragColor = vec4(vec3(fresnel), 1);
 }

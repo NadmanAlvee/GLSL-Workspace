@@ -98,7 +98,8 @@ class World {
 
     // meshes
     // const geometry = new THREE.IcosahedronGeometry(1, 5);
-    const geometry = new THREE.PlaneGeometry(2, 2, 2, 2);
+    // const geometry = new THREE.PlaneGeometry(2, 2, 2, 2);
+    const geometry = new THREE.SphereGeometry(1);
     console.log(geometry.attributes);
 
     const material = new THREE.ShaderMaterial({
