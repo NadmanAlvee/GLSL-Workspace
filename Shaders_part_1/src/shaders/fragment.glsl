@@ -100,14 +100,14 @@ void main(){
   // length  length of a vector
   vec2 uv = vUv;
 
-  uv.x = uv.x - 1.0 / 2.0;
-  uv.y = uv.y - 1.0 / 2.0;
-  uv *= 2.0;
+  // uv.x = uv.x - 1.0 / 2.0;
+  // uv.y = uv.y - 1.0 / 2.0;
+  // uv *= 2.0;
 
   // gl_FragColor = vec4(vUv, 0, 1);
   // gl_FragColor = vec4(vec3(length(vUv)), 1);
 
-  const float RADIUS = 0.8;
+  // const float RADIUS = 0.8;
   // gl_FragColor = vec4(vec3(step(uRadius, length(uv))), 1);
 
   // fract() only returns the decimal part. 3.5 -> 0.5
@@ -118,8 +118,14 @@ void main(){
   // mix() lerps between min and max of the given value
   // gl_FragColor = vec4(vec3(mix(0.0, 0.5, vUv.x)), 1);
 
+  // sunlight brightness
+  vec3 dLight = normalize(vec3(0.f, 2.f, 0.f));
+  vec3 normal = normalize(vNormal);
+  float brightness = max(dot(normal, dLight), 0.f) * 2.0;
+
   vec3 vectorA = vec3(1.0);
   vec3 vectorB = vec3(0.0);
-  // dot(vecA, vecB)
-  gl_FragColor = vec4(vec3(), 1);
+  float dotProduct = dot(vectorA, vectorB);
+
+  gl_FragColor = vec4(vec3(dotProduct), 1);
 }
