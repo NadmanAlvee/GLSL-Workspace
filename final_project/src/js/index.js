@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { HDRLoader } from "three/addons/loaders/HDRLoader.js";
 
 // shaders
 import vertexShader from "../shaders/vertex.glsl?raw";
@@ -15,6 +16,7 @@ class World {
 
     this.controls = this.#initControl();
     this.gltfLoader = this.#initGltfLoader();
+    this.hdrTextureLoader = this.#hdrTextureLoader();
 
     this.#init();
   }
@@ -54,7 +56,7 @@ class World {
       0.1,
       1000,
     );
-    camera.position.set(0, 2, 3);
+    camera.position.set(0, 15, 30);
     return camera;
   }
 
@@ -72,48 +74,30 @@ class World {
     return gltfLoader;
   }
 
+  // hdr loader
+  #hdrTextureLoader() {
+    const hdrTextureLoader = new HDRLoader();
+    return hdrTextureLoader;
+  }
+
   // Background
   #initBackground() {
-    this.scene.background = new THREE.Color(0x141414);
+    this.scene.background = new THREE.Color(0xededed);
   }
   // Lights
   #initLights() {
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
     this.scene?.add(ambientLight);
 
-    const directionalLight = new THREE.DirectionalLight("#ffffff", 0.75);
-    directionalLight.position.set(5, 5, 5);
+    const directionalLight = new THREE.DirectionalLight("#ffffff", 2);
+    directionalLight.position.set(10, 20, 0);
     directionalLight.castShadow = true;
     directionalLight.shadow.camera.bottom = -12;
     this.scene?.add(directionalLight);
   }
 
   // Initiate Objects
-  async #initObjects() {
-    const gridColor = 0xffffff;
-    const gridHelper = new THREE.GridHelper(2, 10, gridColor, gridColor);
-    gridHelper.material.transparent = true;
-    gridHelper.material.opacity = 0.1;
-    this.scene.add(gridHelper);
-
-    // meshes
-    // const geometry = new THREE.IcosahedronGeometry(1, 5);
-    // const geometry = new THREE.PlaneGeometry(2, 2, 2, 2);
-    const geometry = new THREE.SphereGeometry(1);
-    console.log(geometry.attributes);
-
-    const material = new THREE.ShaderMaterial({
-      vertexShader: vertexShader,
-      fragmentShader: fragmentShader,
-      side: THREE.DoubleSide,
-      // wireframe: true,
-    });
-    material.uniforms.uTime = { value: 0 };
-    material.uniforms.uRadius = { value: 0.5 };
-
-    const ico = new THREE.Mesh(geometry, material);
-    this.scene.add(ico);
-  }
+  async #initObjects() {}
 
   // Animate Scene
   #initAnimationLoop() {
