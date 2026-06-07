@@ -56,7 +56,7 @@ class World {
       0.1,
       1000,
     );
-    camera.position.set(0, 15, 30);
+    camera.position.set(0, 2, 3);
     return camera;
   }
 
@@ -82,7 +82,7 @@ class World {
 
   // Background
   #initBackground() {
-    this.scene.background = new THREE.Color(0xededed);
+    this.scene.background = new THREE.Color(0x141414);
   }
   // Lights
   #initLights() {
@@ -97,12 +97,34 @@ class World {
   }
 
   // Initiate Objects
-  async #initObjects() {}
+  async #initObjects() {
+    // const geometry = new THREE.PlaneGeometry(2, 2, 2, 2);
+    const geometry = new THREE.IcosahedronGeometry(1, 100);
+    console.log(geometry);
+
+    const material = new THREE.ShaderMaterial({
+      vertexShader: vertexShader,
+      fragmentShader: fragmentShader,
+      // wireframe: true,
+    });
+    this.material = material;
+    material.uniforms.uTime = { value: 0 };
+    material.uniforms.uRadius = { value: 0.5 };
+    // material.uniforms.uTexture = {
+    //   value: new THREE.TextureLoader().load(colorfulTexture),
+    // };
+    console.log(material);
+
+    const organicShape = new THREE.Mesh(geometry, material);
+    this.scene.add(organicShape);
+  }
 
   // Animate Scene
   #initAnimationLoop() {
     this.renderer.setAnimationLoop((time) => {
       this.controls.update();
+      this.material.uniforms.uTime.value = time / 1000;
+
       this.renderer.render(this.scene, this.camera);
     });
   }

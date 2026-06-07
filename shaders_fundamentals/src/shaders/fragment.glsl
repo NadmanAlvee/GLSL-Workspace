@@ -98,7 +98,7 @@ varying vec2 vUv; // interpolation / lerp, no hard edge
 //   // smooth step
 //   // gl_FragColor = vec4(vec3(smoothstep(0.45, 0.55, vUv.x)), 1);
 
-//   // length  length of a vector
+//   // length  length of a vector - length(vUv) computes the distance from the origin (0.0, 0.0) to the current UV coordinate. 
 //   // vec2 uv = vUv;
 
 //   // uv.x = uv.x - 1.0 / 2.0;
