@@ -102,7 +102,7 @@ class World {
 
     // meshes
     // const geometry = new THREE.IcosahedronGeometry(1, 1);
-    const geometry = new THREE.PlaneGeometry(10, 10, 128, 128);
+    const geometry = new THREE.PlaneGeometry(10, 10, 30, 30);
     // const geometry = new THREE.SphereGeometry(5, 200);
     console.log(geometry.attributes);
 
