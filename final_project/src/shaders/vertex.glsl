@@ -112,6 +112,20 @@ void main(){
   vDisplacement = pattern;
   float displacement = vDisplacement / 3.0;
 
+  float eps = 0.01;
+
+  vec3 coordsA = vec3((position.x + eps) * 0.5, position.z * 0.5, uTime * 0.1);
+  vec3 coordsB = vec3(position.x * 0.5, (position.z + eps) * 0.5, uTime * 0.1);
+
+  float dispA = fbm(coordsA) * 0.3;
+  float dispB = fbm(coordsB) * 0.3;
+
+  vec3 tangent = normalize(vec3(eps, dispA - displacement, 0.0));
+  vec3 bitangent = normalize(vec3(0.0, dispB - displacement, eps));
+  vec3 newNormal = normalize(cross(bitangent, tangent));
+
+  vNormal = newNormal;
+
   // MVP
   vec3 newPosition = position + normal * displacement;
   vec4 modelViewPosition = modelViewMatrix * vec4( newPosition, 1.0 );

@@ -54,7 +54,7 @@ class World {
       0.1,
       1000,
     );
-    camera.position.set(0, 2, 3);
+    camera.position.set(0, 6, 10);
     return camera;
   }
 
@@ -94,12 +94,16 @@ class World {
     const gridHelper = new THREE.GridHelper(2, 10, gridColor, gridColor);
     gridHelper.material.transparent = true;
     gridHelper.material.opacity = 0.1;
-    this.scene.add(gridHelper);
+    // this.scene.add(gridHelper);
+
+    const axesHelper = new THREE.AxesHelper(2);
+    axesHelper.position.y = 0.2;
+    // this.scene.add(axesHelper);
 
     // meshes
     // const geometry = new THREE.IcosahedronGeometry(1, 1);
-    const geometry = new THREE.PlaneGeometry(2, 2);
-    // const geometry = new THREE.SphereGeometry(1);
+    const geometry = new THREE.PlaneGeometry(10, 10, 128, 128);
+    // const geometry = new THREE.SphereGeometry(5, 200);
     console.log(geometry.attributes);
 
     const material = new THREE.ShaderMaterial({
@@ -109,11 +113,14 @@ class World {
       vertexShader: vertexShader,
       fragmentShader: fragmentShader,
       side: THREE.DoubleSide,
+      // wireframe: true,
     });
     // material.uniforms.uTime = { value: 0 };
     this.material = material;
 
     const ico = new THREE.Mesh(geometry, material);
+    ico.rotation.x = Math.PI / 2;
+    // ico.rotation.z = -Math.PI / 2;
     this.scene.add(ico);
   }
 
